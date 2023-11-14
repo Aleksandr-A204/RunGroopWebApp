@@ -1,13 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RunGroopWebApp.Data;
+using RunGroopWebApp.Interfaces;
+using RunGroopWebApp.Models;
 
 namespace RunGroopWebApp.Controllers
 {
     public class ClubController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
+        private readonly IClubRepository _clubRepository;
+
+        public ClubController(IClubRepository clubRepository)
         {
-            return View();
+            _clubRepository = clubRepository;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var clubs = await _clubRepository.GetAll();
+            return View(clubs);
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            var club = await _clubRepository.GetByIdAsync(id);
+
+            return View(club);
         }
     }
 }
