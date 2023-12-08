@@ -8,7 +8,7 @@ namespace RunGroopWebApp.Models
         public int? Page { get; set; }
         public int? Mileage { get; set; }
         [ForeignKey("Address")]
-        public long AddressId { get; set; }
+        public long? AddressId { get; set; }
         public Address? Address { get; set; }
         public ICollection<Club> Clubs { get; set; }
         public ICollection<Race> Races { get; set; }
