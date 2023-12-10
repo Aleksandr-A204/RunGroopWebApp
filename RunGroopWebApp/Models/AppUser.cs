@@ -5,7 +5,7 @@ namespace RunGroopWebApp.Models
 {
     public class AppUser : IdentityUser
     {
-        public int? Page { get; set; }
+        public int? Pace { get; set; }
         public int? Mileage { get; set; }
         [ForeignKey("Address")]
         public long? AddressId { get; set; }
