@@ -2,7 +2,6 @@
 using RunGroopWebApp.Data;
 using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
-using RunGroopWebApp.ViewModels;
 
 namespace RunGroopWebApp.Repository
 {
@@ -28,5 +27,16 @@ namespace RunGroopWebApp.Repository
             var userRaces = _context.Races.Where(r => r.AppUser.Id == curUser);
             return await userRaces.ToListAsync();
         }
+        public async Task<AppUser> GetUserById(string id) => await _context.Users.FirstAsync(u => u.Id == id);
+
+        public async Task<AppUser> GetByIdNoTracking(string id) => await _context.Users.Where(u => u.Id == id).AsNoTracking().FirstOrDefaultAsync();
+
+        public bool Update(AppUser user)
+        {
+            _context.Users.Update(user);
+            return Save();
+        }
+
+        public bool Save() => _context.SaveChanges() > 0 ? true : false;
     }
 }
